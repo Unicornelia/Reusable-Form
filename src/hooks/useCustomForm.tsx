@@ -32,6 +32,12 @@ const useCustomForm = ({ initialValues, onSubmit }) => {
     //set state to take previous values and add this new
     setValues({ ...values, [name]: value });
   };
+
+  const handleBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {target: {name}} = event
+    setTouched({...touched, [name]: true})
+    setErrors({...errors})
+  }
 };
 
 export default useCustomForm;
