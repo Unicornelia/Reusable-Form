@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from "react";
 import { useState, useEffect, useRef } from "react";
 
 const useCustomForm = ({ initialValues, onSubmit }) => {
@@ -34,10 +34,30 @@ const useCustomForm = ({ initialValues, onSubmit }) => {
   };
 
   const handleBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {target: {name}} = event
-    setTouched({...touched, [name]: true})
-    setErrors({...errors})
-  }
+    const {
+      target: { name }
+    } = event;
+    setTouched({ ...touched, [name]: true });
+    setErrors({ ...errors });
+  };
+
+  const handleSubmit = event => {
+    //handling submit event, take values and errors and pas it to the onSubmit event that got passed down
+    if (event) {
+      event.preventDefault();
+    }
+    setErrors({ ...errors });
+    onSubmit({ values, errors });
+  };
+
+  return {
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleBlur,
+    handleSubmit
+  };
 };
 
 export default useCustomForm;
