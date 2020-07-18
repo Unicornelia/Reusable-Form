@@ -1,26 +1,59 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import useCustomForm from "./hooks/useCustomForm";
 
-function App() {
+const App = () => {
+  const initialValues = {
+    name: "",
+    occupation: "",
+    age: 0
+  };
+
+  const onSubmit = (values: any) => {
+    console.log(values, 'submitting');
+  };
+
+  const {
+    values,
+    handleSubmit,
+    handleBlur,
+    handleChange,
+    touched,
+    errors
+  } = useCustomForm({ initialValues, onSubmit });
+
+  console.log(values, 'initial')
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div style={{ textAlign: "center" }}>
+      <header>
+        <p>A Simple form</p>
       </header>
+      <form onSubmit={handleSubmit}>
+        <label>Name</label>
+        <input
+          type="text"
+          name="name"
+          onChange={handleChange}
+          value={values.name}
+        />
+        <label>Occupation</label>
+        <input
+          type="text"
+          name="occupation"
+          onChange={handleChange}
+          value={values.occupation}
+        />
+        <label>Age</label>
+        <input
+          type="number"
+          name="age"
+          onChange={handleChange}
+          value={values.age}
+        />
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
-}
+};
 
 export default App;
